@@ -77,7 +77,9 @@
         // カテゴリ選択時の処理
         categorySelect.addEventListener('change', function() {
             const selectedCategory = this.value;
-            gradeSelect.innerHTML = '<option value="">-- 学年を選択 --</option>';
+            // 社会人の場合は「時間帯を選択」、それ以外は「学年を選択」
+            const placeholderText = selectedCategory === 'worker' ? '-- 時間帯を選択 --' : '-- 学年を選択 --';
+            gradeSelect.innerHTML = `<option value="">${placeholderText}</option>`;
             linkContainer.innerHTML = '';
             noticeText.style.display = 'none';
             
