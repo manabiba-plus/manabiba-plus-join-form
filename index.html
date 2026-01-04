@@ -9,31 +9,50 @@
 <body>
     <div class="container">
         <h1>学年を選択してください</h1>
-        <select id="gradeSelect">
-            <option value="">-- 学年を選択 --</option>
-            <option value="j1">中学1年生</option>
-            <option value="j2">中学2年生</option>
-            <option value="j3">中学3年生</option>
-            <option value="h1">高校1年生</option>
-            <option value="h2">高校2年生</option>
-            <option value="h3">高校3年生・高卒生</option>
-            <option value="u1">大学1年生</option>
-            <option value="u2">大学2年生</option>
-            <option value="u3">大学3年生</option>
-            <option value="u4">大学4年生</option>
-            <option value="u5">大学5年生(修士1年生)</option>
-            <option value="u6">大学6年生(修士2年生)</option>
+        <select id="categorySelect">
+            <option value="">-- カテゴリを選択 --</option>
+            <option value="junior">中学生</option>
+            <option value="high">高校生</option>
+            <option value="university">大学生</option>
             <option value="worker">社会人</option>
-            <option value="fulltime">5:30~23:30の時間帯でご利用する方(フルタイムオプションあり)</option>
-            <option value="parttime">8:00~18:00の時間帯でご利用する方(フルタイムオプションなし)</option>
+        </select>
+        <select id="gradeSelect" style="display: none;">
+            <option value="">-- 学年を選択 --</option>
         </select>
         <div id="linkContainer" class="link-container"></div>
     </div>
     <script>
+        const categorySelect = document.getElementById('categorySelect');
         const gradeSelect = document.getElementById('gradeSelect');
         const linkContainer = document.getElementById('linkContainer');
         
-        // 学年に対応するリンクの設定（必要に応じて変更してください）
+        // カテゴリごとの選択肢
+        const categoryOptions = {
+            'junior': [
+                { value: 'j1', text: '中学1年生' },
+                { value: 'j2', text: '中学2年生' },
+                { value: 'j3', text: '中学3年生' }
+            ],
+            'high': [
+                { value: 'h1', text: '高校1年生' },
+                { value: 'h2', text: '高校2年生' },
+                { value: 'h3', text: '高校3年生・高卒生' }
+            ],
+            'university': [
+                { value: 'u1', text: '大学1年生' },
+                { value: 'u2', text: '大学2年生' },
+                { value: 'u3', text: '大学3年生' },
+                { value: 'u4', text: '大学4年生' },
+                { value: 'u5', text: '大学5年生(修士1年生)' },
+                { value: 'u6', text: '大学6年生(修士2年生)' }
+            ],
+            'worker': [
+                { value: 'fulltime', text: '5:30~23:30の時間帯でご利用する方(フルタイムオプションあり)' },
+                { value: 'parttime', text: '8:00~18:00の時間帯でご利用する方(フルタイムオプションなし)' }
+            ]
+        };
+        
+        // 学年に対応するリンクの設定
         const gradeLinks = {
             'j1': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '中学1年生のページへ' },
             'j2': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '中学2年生のページへ' },
@@ -47,11 +66,40 @@
             'u4': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '大学4年生のページへ' },
             'u5': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '大学5年生(修士1年生)のページへ' },
             'u6': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '大学6年生(修士2年生)のページへ' },
-            'worker': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '社会人のページへ' },
             'fulltime': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '5:30~23:30の時間帯でご利用する方(フルタイムオプションあり)のページへ' },
             'parttime': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '8:00~18:00の時間帯でご利用する方(フルタイムオプションなし)のページへ' }
         };
         
+        // カテゴリ選択時の処理
+        categorySelect.addEventListener('change', function() {
+            const selectedCategory = this.value;
+            gradeSelect.innerHTML = '<option value="">-- 学年を選択 --</option>';
+            linkContainer.innerHTML = '';
+            
+            if (selectedCategory && categoryOptions[selectedCategory]) {
+                // サブカテゴリがある場合、2番目の選択肢を表示
+                gradeSelect.style.display = 'block';
+                categoryOptions[selectedCategory].forEach(option => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = option.value;
+                    optionElement.textContent = option.text;
+                    gradeSelect.appendChild(optionElement);
+                });
+            } else if (selectedCategory && gradeLinks[selectedCategory]) {
+                // 直接リンクがある場合（社会人、時間帯オプション）
+                gradeSelect.style.display = 'none';
+                const link = document.createElement('a');
+                link.href = gradeLinks[selectedCategory].url;
+                link.textContent = gradeLinks[selectedCategory].text;
+                link.className = 'grade-link';
+                linkContainer.appendChild(link);
+            } else {
+                // 選択がリセットされた場合
+                gradeSelect.style.display = 'none';
+            }
+        });
+        
+        // 学年選択時の処理
         gradeSelect.addEventListener('change', function() {
             const selectedGrade = this.value;
             linkContainer.innerHTML = '';
