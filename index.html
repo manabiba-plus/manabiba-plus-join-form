@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学年選択</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>学年を選択してください</h1>
+        <select id="gradeSelect">
+            <option value="">-- 学年を選択 --</option>
+            <option value="j1">中学1年生</option>
+            <option value="j2">中学2年生</option>
+            <option value="j3">中学3年生</option>
+            <option value="h1">高校1年生</option>
+            <option value="h2">高校2年生</option>
+            <option value="h3">高校3年生・高卒生</option>
+            <option value="u1">大学1年生</option>
+            <option value="u2">大学2年生</option>
+            <option value="u3">大学3年生</option>
+            <option value="u4">大学4年生</option>
+            <option value="u5">大学5年生(修士1年生)</option>
+            <option value="u6">大学6年生(修士2年生)</option>
+            <option value="worker">社会人</option>
+            <option value="fulltime">5:30~23:30の時間帯でご利用する方(フルタイムオプションあり)</option>
+            <option value="parttime">8:00~18:00の時間帯でご利用する方(フルタイムオプションなし)</option>
+        </select>
+        <div id="linkContainer" class="link-container"></div>
+    </div>
+    <script>
+        const gradeSelect = document.getElementById('gradeSelect');
+        const linkContainer = document.getElementById('linkContainer');
+        
+        // 学年に対応するリンクの設定（必要に応じて変更してください）
+        const gradeLinks = {
+            'j1': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '中学1年生のページへ' },
+            'j2': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '中学2年生のページへ' },
+            'j3': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '中学3年生のページへ' },
+            'h1': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '高校1年生のページへ' },
+            'h2': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '高校2年生のページへ' },
+            'h3': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '高校3年生・高卒生のページへ' },
+            'u1': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '大学1年生のページへ' },
+            'u2': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '大学2年生のページへ' },
+            'u3': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '大学3年生のページへ' },
+            'u4': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '大学4年生のページへ' },
+            'u5': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '大学5年生(修士1年生)のページへ' },
+            'u6': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '大学6年生(修士2年生)のページへ' },
+            'worker': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '社会人のページへ' },
+            'fulltime': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '5:30~23:30の時間帯でご利用する方(フルタイムオプションあり)のページへ' },
+            'parttime': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '8:00~18:00の時間帯でご利用する方(フルタイムオプションなし)のページへ' }
+        };
+        
+        gradeSelect.addEventListener('change', function() {
+            const selectedGrade = this.value;
+            linkContainer.innerHTML = '';
+            
+            if (selectedGrade && gradeLinks[selectedGrade]) {
+                const link = document.createElement('a');
+                link.href = gradeLinks[selectedGrade].url;
+                link.textContent = gradeLinks[selectedGrade].text;
+                link.className = 'grade-link';
+                linkContainer.appendChild(link);
+            }
+        });
+    </script>
+</body>
+</html>
+
