@@ -20,11 +20,13 @@
             <option value="">-- 学年を選択 --</option>
         </select>
         <div id="linkContainer" class="link-container"></div>
+        <p id="noticeText" class="notice-text" style="display: none;">※選択にお間違いがないかご確認ください</p>
     </div>
     <script>
         const categorySelect = document.getElementById('categorySelect');
         const gradeSelect = document.getElementById('gradeSelect');
         const linkContainer = document.getElementById('linkContainer');
+        const noticeText = document.getElementById('noticeText');
         
         // カテゴリごとの選択肢
         const categoryOptions = {
@@ -54,20 +56,20 @@
         
         // 学年に対応するリンクの設定
         const gradeLinks = {
-            'j1': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '中学1年生のページへ' },
-            'j2': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '中学2年生のページへ' },
-            'j3': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '中学3年生のページへ' },
-            'h1': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '高校1年生のページへ' },
-            'h2': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '高校2年生のページへ' },
-            'h3': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '高校3年生・高卒生のページへ' },
-            'u1': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '大学1年生のページへ' },
-            'u2': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '大学2年生のページへ' },
-            'u3': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '大学3年生のページへ' },
-            'u4': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '大学4年生のページへ' },
-            'u5': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '大学5年生(修士1年生)のページへ' },
-            'u6': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '大学6年生(修士2年生)のページへ' },
-            'fulltime': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '5:30~23:30の時間帯でご利用する方(フルタイムオプションあり)のページへ' },
-            'parttime': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '8:00~18:00の時間帯でご利用する方(フルタイムオプションなし)のページへ' }
+            'j1': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '申し込みページへ' },
+            'j2': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '申し込みページへ' },
+            'j3': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '申し込みページへ' },
+            'h1': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '申し込みページへ' },
+            'h2': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '申し込みページへ' },
+            'h3': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '申し込みページへ' },
+            'u1': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '申し込みページへ' },
+            'u2': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '申し込みページへ' },
+            'u3': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '申し込みページへ' },
+            'u4': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '申し込みページへ' },
+            'u5': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '申し込みページへ' },
+            'u6': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '申し込みページへ' },
+            'fulltime': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '申し込みページへ' },
+            'parttime': { url: 'https://www.kaihipay.jp/forms?form_code=8616152147631042', text: '申し込みページへ' }
         };
         
         // カテゴリ選択時の処理
@@ -75,6 +77,7 @@
             const selectedCategory = this.value;
             gradeSelect.innerHTML = '<option value="">-- 学年を選択 --</option>';
             linkContainer.innerHTML = '';
+            noticeText.style.display = 'none';
             
             if (selectedCategory && categoryOptions[selectedCategory]) {
                 // サブカテゴリがある場合、2番目の選択肢を表示
@@ -93,6 +96,7 @@
                 link.textContent = gradeLinks[selectedCategory].text;
                 link.className = 'grade-link';
                 linkContainer.appendChild(link);
+                noticeText.style.display = 'block';
             } else {
                 // 選択がリセットされた場合
                 gradeSelect.style.display = 'none';
@@ -110,6 +114,9 @@
                 link.textContent = gradeLinks[selectedGrade].text;
                 link.className = 'grade-link';
                 linkContainer.appendChild(link);
+                noticeText.style.display = 'block';
+            } else {
+                noticeText.style.display = 'none';
             }
         });
     </script>

@@ -69,3 +69,10 @@ select:focus {
     background-color: #45a049;
 }
 
+.notice-text {
+    margin-top: 15px;
+    color: red;
+    font-size: 14px;
+    text-align: center;
+}
+
